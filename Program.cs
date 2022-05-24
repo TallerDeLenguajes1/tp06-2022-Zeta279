@@ -1,14 +1,20 @@
-﻿namespace TrabajoPractico6{
+﻿namespace TrabajoPractico6
+{
     class Program{
         static void Main(string[] args){
-            int ejercicio;
-
             Console.Write("Seleccionar ejercicio 1 o 2: ");
 
-            ejercicio = Int32.Parse(Console.ReadLine());
-
-            if(ejercicio == 1) ejercicio_1();
-            else ejercicio_2();
+            switch(Console.ReadLine()){
+                case "1":
+                    ejercicio_1();
+                    break;
+                case "2":
+                    ejercicio_2();
+                    break;
+                default:
+                    Console.WriteLine("Opción incorrecta");
+                    break;
+            }
         }
 
         static void ejercicio_1(){
@@ -71,40 +77,5 @@
         static void ejercicio_2(){
             
         }
-    }
-
-    class Calculadora{
-        private double resultado;
-
-        public Calculadora(double resultado){
-            this.resultado = resultado;
-        }
-
-        public double GetResultado(){
-            return this.resultado;
-        }
-
-        public void Sumar(double termino){
-            this.resultado += termino;
-        }
-
-        public void Restar(double termino){
-            this.resultado -= termino;
-        }
-
-        public void Multiplicar(double termino){
-            this.resultado *= termino;
-        }
-
-        public void Dividir(double termino){
-            if(termino != 0){
-                this.resultado /= termino;
-            }
-        }
-
-        public void Limpiar(double resultado){
-            this.resultado = resultado;
-        }
-
     }
 }
