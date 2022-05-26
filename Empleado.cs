@@ -19,6 +19,8 @@ namespace TrabajoPractico6
         private double sueldoBasico;
         private Cargos cargo;
 
+        public Empleado() { }
+
         public Empleado(string nombre, string apellido, DateTime fechaNac, char estadoCivil, char genero, DateTime fechaIngreso, double sueldoBasico, Cargos cargo){
             this.Nombre = nombre;
             this.Apellido = apellido;
@@ -66,8 +68,35 @@ namespace TrabajoPractico6
                 adicional += adicional * 0.5;
             }
 
+            if(this.estadoCivil == 'C')
+            {
+                adicional += 15000;
+            }
+
             return this.sueldoBasico + adicional;
         }
-    
+
+        public override string ToString()
+        {
+            string cadena = new string("");
+
+            cadena = $"Nombre: {this.nombre}\n";
+            cadena += $"Apellido: {this.apellido}\n";
+            cadena += $"Fecha de nacimiento: {this.fechaNac.ToString("dd/MM/yyyy")}\n";
+            cadena += $"Estado Civil: ";
+
+            if (this.estadoCivil == 'C') cadena += "Casado\n";
+            else cadena += "Soltero\n";
+
+            cadena += $"Fecha de ingreso en la empresa: {this.fechaIngreso.ToString("dd/MM/yyyy")}\n";
+            cadena += $"Antiguedad: {this.Antiguedad()}\n";
+            cadena += $"Sueldo básico: {this.sueldoBasico}\n";
+            cadena += $"Salario completo: {this.Salario()}\n";
+            cadena += $"Cargo: {this.cargo}\n";
+            cadena += $"Años restantes para la jubilación: {this.Jubilacion()}";
+
+            return cadena;
+        }
+
     }
 }

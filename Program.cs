@@ -75,7 +75,145 @@
         }
 
         static void ejercicio_2(){
+            Empleado[] empleados = new Empleado[3];
+            string aux;
+            int opcion, indice = 0;
+            double salarioTotal = 0, jubilacion = 0;
+            int dia, mes, anio;
+
+            Console.WriteLine("Cargar datos para tres empleados");
             
+            for(int i = 0; i < 3; i++)
+            {
+                empleados[i] = new Empleado();
+
+                Console.WriteLine($"Empleado {i + 1}");
+                Console.Write("Nombre: ");
+                empleados[i].Nombre = Console.ReadLine();
+
+                Console.Write("Apellido: ");
+                empleados[i].Apellido = Console.ReadLine();
+
+                Console.WriteLine("Fecha de nacimiento: ");
+                Console.Write("Año: ");
+                do { anio = int.Parse(Console.ReadLine()); } while (anio <= 1920 || anio >= 2002);
+
+                Console.Write("Mes: ");
+                do { mes = int.Parse(Console.ReadLine()); } while (mes < 1 || mes > 12);
+
+                Console.Write("Día: ");
+                do { dia = int.Parse(Console.ReadLine()); } while (dia < 1 || dia > 31);
+
+                empleados[i].FechaNac = new DateTime(anio, mes, dia);
+
+                do
+                {
+                    Console.Write("Está casado? (S: Sí / N: No): ");
+                    aux = Console.ReadLine().ToLower();
+
+                    if (aux == "s")
+                    {
+                        empleados[i].EstadoCivil = 'C';
+                    }
+                    else if (aux == "n")
+                    {
+                        empleados[i].EstadoCivil = 'S';
+                    }
+                    else
+                    {
+                        Console.WriteLine("Opción incorrecta");
+                    }
+                } while (aux != "s" && aux != "n") ;
+
+
+                do
+                {
+                    Console.Write("Género (H: Hombre / M: Mujer): ");
+                    aux = Console.ReadLine().ToLower();
+
+                    if (aux == "h")
+                    {
+                        empleados[i].Genero = 'H';
+                    }
+                    else if (aux == "m")
+                    {
+                        empleados[i].Genero = 'M';
+                    }
+                    else
+                    {
+                        Console.WriteLine("Opción incorrecta");
+                    }
+
+                } while (aux != "h" && aux != "m");
+
+                Console.WriteLine("Fecha de ingreso en la empresa: ");
+                Console.Write("Año: ");
+                do { anio = int.Parse(Console.ReadLine()); } while (anio <= 1950 || anio >= 2022);
+
+                Console.Write("Mes: ");
+                do { mes = int.Parse(Console.ReadLine()); } while (mes < 1 || mes > 12);
+
+                Console.Write("Día: ");
+                do { dia = int.Parse(Console.ReadLine()); } while (dia < 1 || dia > 31);
+
+                empleados[i].FechaIngreso = new DateTime(anio, mes, dia);
+
+                Console.Write("Sueldo básico: ");
+                empleados[i].SueldoBasico = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Cargo");
+                Console.WriteLine("Opciones válidas:");
+                Console.WriteLine("1) Auxiliar");
+                Console.WriteLine("2) Administrativo");
+                Console.WriteLine("3) Ingeniero");
+                Console.WriteLine("4) Especialista");
+                Console.WriteLine("5) Investigador");
+
+                do
+                {
+                    Console.Write("Opción: ");
+                    opcion = int.Parse(Console.ReadLine());
+
+                    switch (opcion)
+                    {
+                        case 1:
+                            empleados[i].Cargo = Cargos.Auxiliar;
+                            break;
+                        case 2:
+                            empleados[i].Cargo = Cargos.Administrativo;
+                            break;
+                        case 3:
+                            empleados[i].Cargo = Cargos.Ingeniero;
+                            break;
+                        case 4:
+                            empleados[i].Cargo = Cargos.Especialista;
+                            break;
+                        case 5:
+                            empleados[i].Cargo = Cargos.Investigador;
+                            break;
+                        default:
+                            Console.WriteLine("Opción incorrecta");
+                            break;
+                    }
+                } while (opcion < 1 || opcion > 5);
+
+                if(i == 0)
+                {
+                    jubilacion = empleados[i].Jubilacion();
+                }
+                else if (empleados[i].Jubilacion() < jubilacion)
+                {
+                    indice = i;
+                    jubilacion = empleados[i].Jubilacion();
+                }
+
+
+                salarioTotal += empleados[i].Salario();
+            }
+
+            
+            Console.WriteLine($"Salario total: {salarioTotal}");
+            Console.WriteLine($"Empleado más proximo a jubilarse:\n{empleados[indice]}\n");
         }
     }
 }
